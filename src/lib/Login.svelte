@@ -13,13 +13,13 @@
 </script>
 
 <Stack override={{ height: "100%", width: "100%"}}  align="center" spacing="xl">
-    <TextInput label="Gruppenname" bind:value={username}>
+    <TextInput label="Group Name" bind:value={username}>
         <svelte:fragment slot="rightSection">
             <Icon icon={faUserGroup}/>
         </svelte:fragment>
     </TextInput>
 
-    <TextInput label="Passwort" type="password" bind:value={password}>
+    <TextInput label="Password" type="password" bind:value={password}>
         <svelte:fragment slot="rightSection">
             <Icon icon={faKey}/>
         </svelte:fragment>
