@@ -1,0 +1,36 @@
+@import "lib/vars";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+  appearance: none;
+  user-select: none;
+}
+
+html, body {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: $base-font-size;
+  line-height: 24px;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  color: $text-primary-color;
+  scrollbar-color: $base-color-alt3 transparent;
+  accent-color: $text-primary-color;
+}
+
+#app {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
