@@ -3,7 +3,8 @@
 
     import {createEventDispatcher} from "svelte";
     import {Notification} from "@svelteuidev/core";
-    import {Check, Cross2, ExclamationTriangle} from "radix-icons-svelte";
+    import {Check, Cross2} from "radix-icons-svelte";
+    import Warning from "./icons/Warning.svelte";
 
     export let notification: NotificationProps;
 
@@ -30,7 +31,7 @@
         {notification.text}
     </Notification>
 {:else if notification.type === "warning"}
-    <Notification title={notification.title} override={overrideStyles} icon={ExclamationTriangle} color="yellow" on:close={remove}>
+    <Notification title={notification.title} override={overrideStyles} icon={Warning} color="yellow" on:close={remove}>
         {notification.text}
     </Notification>
 {:else if notification.type === "info"}
