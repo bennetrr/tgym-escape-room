@@ -1,4 +1,4 @@
-export default interface INotification {
+export default interface NotificationProps {
     id?: string;
     type: "error" | "warning" | "info" | "success" | "loading";
     title?: string;

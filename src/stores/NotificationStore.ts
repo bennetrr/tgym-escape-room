@@ -1,11 +1,11 @@
 import {writable} from "svelte/store";
 import {v4 as uuid4} from "uuid";
 
-import type INotification from "../interfaces/INotification";
+import type NotificationProps from "../interfaces/NotificationProps";
 
-export const notifications = writable<INotification[]>([]);
+export const notifications = writable<NotificationProps[]>([]);
 
-export function addNotification(data: INotification): string {
+export function addNotification(data: NotificationProps): string {
     data.id = uuid4();
     notifications.update(oldData => [...oldData, data]);
     return data.id;
