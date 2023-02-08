@@ -1,13 +1,14 @@
 <script lang="ts">
-    import {pb} from "./PocketBase";
-    import type {EscapeStation} from "./DataStructures";
-    import {mapPocketBaseToEscapeStation} from "./DataStructures";
-    import {faLock} from "@fortawesome/free-solid-svg-icons";
-    import {Icon} from "svelte-fontawesome/main";
+    import {pb} from "../connectors/PocketBase";
+    import {type EscapeStation, mapPocketBaseToEscapeStation} from "../interfaces/IEscapeStation";
+    import {stations} from "../stores/EscapeStationStore";
+
     import {onDestroy, onMount} from "svelte";
-    import {stations} from "./stores";
     import {ActionIcon, SimpleGrid} from "@svelteuidev/core";
-    import EscapeStationView from "./EscapeStationView.svelte";
+    import {Icon} from "svelte-fontawesome/main";
+    import {faLock} from "@fortawesome/free-solid-svg-icons";
+
+    import EscapeStationView from "./EscapeStation.svelte";
 
     let unsubscribe: () => void;
 
@@ -59,18 +60,18 @@
 </div>
 
 <style lang="scss">
-  @import "vars";
+  @import "../vars";
 
   main {
     width: 100vw;
     height: 100vh;
-    //noinspection CssUnknownTarget
+    // noinspection CssUnknownTarget
     background-image: url("background.png");
   }
 
   .logout-button {
     position: absolute;
-    bottom: 15px;
-    left: 15px;
+    bottom: $base-spacing;
+    left: $base-spacing;
   }
 </style>

@@ -1,10 +1,11 @@
 <script lang="ts">
-    import type {NotificationProps} from "./NotificationStore";
-    import {Check, Cross2, ExclamationTriangle} from "radix-icons-svelte";
-    import {Notification} from "@svelteuidev/core";
-    import {createEventDispatcher} from "svelte";
+    import type INotification from "../interfaces/INotification";
 
-    export let notification: NotificationProps;
+    import {createEventDispatcher} from "svelte";
+    import {Notification} from "@svelteuidev/core";
+    import {Check, Cross2, ExclamationTriangle} from "radix-icons-svelte";
+
+    export let notification: INotification;
 
     const dispatch = createEventDispatcher();
 
@@ -14,8 +15,8 @@
         });
     }
 
-    if (notification.duration > 0) {
-        setTimeout(remove, notification.duration * 1000);
+    if (notification?.duration > 0) {
+        setTimeout(remove, notification?.duration * 1000);
     }
 </script>
 

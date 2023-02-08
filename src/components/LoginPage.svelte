@@ -1,5 +1,6 @@
 <script lang="ts">
-    import {pb} from "./PocketBase";
+    import {pb} from "../connectors/PocketBase";
+
     import {Button, Stack, TextInput} from "@svelteuidev/core";
     import {Icon} from "svelte-fontawesome/main";
     import {faKey, faUserGroup} from "@fortawesome/free-solid-svg-icons";
@@ -12,20 +13,20 @@
     }
 </script>
 
-<Stack override={{ height: "100%", width: "100%"}}  align="center" spacing="xl">
-    <TextInput label="Group Name" bind:value={username}>
+<Stack align="center" override={{ height: "100%", width: "100%"}} spacing="xl">
+    <TextInput bind:value={username} label="Group Name">
         <svelte:fragment slot="rightSection">
             <Icon icon={faUserGroup}/>
         </svelte:fragment>
     </TextInput>
 
-    <TextInput label="Password" type="password" bind:value={password}>
+    <TextInput bind:value={password} label="Password" type="password">
         <svelte:fragment slot="rightSection">
             <Icon icon={faKey}/>
         </svelte:fragment>
     </TextInput>
 
-    <Button variant="gradient" on:click={login}>
+    <Button on:click={login} variant="gradient">
         Anmelden
     </Button>
 </Stack>
