@@ -1,34 +1,40 @@
 <script lang="ts">
-    import {pb} from "../connectors/PocketBase";
-    import {type EscapeStation, mapPocketBaseToEscapeStation} from "../interfaces/IEscapeStation";
-    import {stations} from "../stores/EscapeStationStore";
+    import {pb, currentUser} from "../connectors/PocketBase";
+    import type {EscapeStationsResponse} from "../interfaces/PocketBaseTypes";
+    import type {EscapeStation} from "../interfaces/IEscapeStation";
 
     import {onDestroy, onMount} from "svelte";
     import {ActionIcon, SimpleGrid} from "@svelteuidev/core";
     import {Icon} from "svelte-fontawesome/main";
-    import {faLock} from "@fortawesome/free-solid-svg-icons";
 
+    import {faLock} from "@fortawesome/free-solid-svg-icons";
     import EscapeStationView from "./EscapeStation.svelte";
 
+    let stations: EscapeStation[] = [];
     let unsubscribe: () => void;
 
     onMount(async () => {
         // Get initial stations
-        const newStations: EscapeStation[] = [];
-        const resultList = await pb.collection("escape_stations").getFullList();
+        const resultList = await pb.collection("escape_stations").getFullList<EscapeStationsResponse>();
 
         for (const result of resultList) {
-            const data = mapPocketBaseToEscapeStation(result);
-            newStations.push(data);
+            stations = [...stations, {
+                id: result.id,
+                name: result.name,
+                code: result.code,
+                completed: $currentUser.completed_stations.some(value => value === result.id)
+            }];
         }
-        stations.set(newStations);
 
         // Subscribe to realtime
         unsubscribe = await pb.collection("escape_stations")
             .subscribe("*", async ({action, record}) => {
-                if (action === "update") {
-                    stations.update(oldStations => [...oldStations, mapPocketBaseToEscapeStation(record)]);
-                }
+                stations = [...stations, {
+                    id: record.id,
+                    name: record.name,
+                    code: record.code,
+                    completed: $currentUser.completed_stations.some(value => value === record.id)
+                }];
             });
     });
 
@@ -42,9 +48,9 @@
 </script>
 
 <main>
-    {#if $stations.length > 0}
+    {#if stations.length > 0}
         <SimpleGrid cols={3} spacing={0}>
-            {#each $stations as station}
+            {#each stations as station}
                 <EscapeStationView station={station}/>
             {/each}
         </SimpleGrid>
