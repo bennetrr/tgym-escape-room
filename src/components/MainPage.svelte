@@ -1,6 +1,6 @@
 <script lang="ts">
     import {pb, currentUser} from "../connectors/PocketBase";
-    import type {EscapeStationsResponse} from "../interfaces/PocketBaseTypes";
+    import type {EscapeStationsResponse, UsersResponse} from "../interfaces/PocketBaseTypes";
     import type {EscapeStation} from "../interfaces/IEscapeStation";
 
     import {onDestroy, onMount} from "svelte";
@@ -9,37 +9,43 @@
 
     import {faLock} from "@fortawesome/free-solid-svg-icons";
     import EscapeStationView from "./EscapeStation.svelte";
+    import {writable} from "svelte/store";
 
-    let stations: EscapeStation[] = [];
-    let unsubscribe: () => void;
+    const stations = writable<EscapeStation[]>([]);
 
     onMount(async () => {
         // Get initial stations
-        const resultList = await pb.collection("escape_stations").getFullList<EscapeStationsResponse>();
+        const stationResultList = await pb.collection("escape_stations").getFullList<EscapeStationsResponse>();
+        const userResult = await pb.collection("users").getOne<UsersResponse>($currentUser.id);
 
-        for (const result of resultList) {
-            stations = [...stations, {
-                id: result.id,
-                name: result.name,
-                code: result.code,
-                completed: $currentUser.completed_stations.some(value => value === result.id)
+        for (const stationResult of stationResultList) {
+            $stations = [...$stations, {
+                id: stationResult.id,
+                name: stationResult.name,
+                code: stationResult.code,
+                completed: userResult.completed_stations.some(x => x === stationResult.id)
             }];
         }
 
-        // Subscribe to realtime
-        unsubscribe = await pb.collection("escape_stations")
-            .subscribe("*", async ({action, record}) => {
-                stations = [...stations, {
-                    id: record.id,
-                    name: record.name,
-                    code: record.code,
-                    completed: $currentUser.completed_stations.some(value => value === record.id)
-                }];
-            });
+        // Subscribe to realtime changes
+        await pb.collection("users").subscribe<UsersResponse>($currentUser.id, async ({action, userRecord}) => {
+            if (action !== "update") return;
+            console.log("user.update event");
+            console.log(userRecord);
+            console.log($currentUser.id);
+
+            pb.collection("users").getOne<UsersResponse>($currentUser.id)
+                .then(userRecord => {
+                    $stations = $stations.map(x => {
+                        x.completed = userRecord.completed_stations.some(y => y === x.id);
+                        return x;
+                    })
+                });
+        });
     });
 
     onDestroy(() => {
-        unsubscribe();
+        pb.collection("users").unsubscribe("*");
     });
 
     function logout() {
@@ -47,10 +53,10 @@
     }
 </script>
 
-<main>
-    {#if stations.length > 0}
+<main class:main-background-image={$stations.length > 0}>
+    {#if $stations.length > 0}
         <SimpleGrid cols={3} spacing={0}>
-            {#each stations as station}
+            {#each $stations as station}
                 <EscapeStationView station={station}/>
             {/each}
         </SimpleGrid>
@@ -71,6 +77,9 @@
   main {
     width: 100vw;
     height: 100vh;
+  }
+
+  .main-background-image {
     // noinspection CssUnknownTarget
     background-image: url("background.png");
   }
