@@ -31,8 +31,7 @@ jobs:
           context: .
           tags: ghcr.io/bennetrr/tgym-escape-room-pocketbase:${{ github.event.release.tag_name }}
           push: true
-          labels:
-            - "org.opencontainers.image.version": ${{ github.event.release.tag_name }}
+          labels: org.opencontainers.image.version=${{ github.event.release.tag_name }}
 
       - name: Build App Image
         uses: docker/build-push-action@v3
@@ -41,8 +40,7 @@ jobs:
           context: .
           tags: ghcr.io/bennetrr/tgym-escape-room-app:${{ github.event.release.tag_name }}
           push: true
-          labels:
-            - org.opencontainers.image.version=${{ github.event.release.tag_name }}
+          labels: org.opencontainers.image.version=${{ github.event.release.tag_name }}
 
       - name: Update latest tag on PocketBase Image
         uses: silverlyra/latest-image-action@main
