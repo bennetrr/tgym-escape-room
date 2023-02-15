@@ -28,19 +28,12 @@
         }
 
         // Subscribe to realtime changes
-        await pb.collection("users").subscribe<UsersResponse>($currentUser.id, async ({action, userRecord}) => {
+        await pb.collection("users").subscribe<UsersResponse>($currentUser.id, async ({action, record}) => {
             if (action !== "update") return;
-            console.log("user.update event");
-            console.log(userRecord);
-            console.log($currentUser.id);
-
-            pb.collection("users").getOne<UsersResponse>($currentUser.id)
-                .then(userRecord => {
-                    $stations = $stations.map(x => {
-                        x.completed = userRecord.completed_stations.some(y => y === x.id);
-                        return x;
-                    })
-                });
+            $stations = $stations.map(x => {
+                x.completed = record.completed_stations.some(y => y === x.id);
+                return x;
+            });
         });
     });
 

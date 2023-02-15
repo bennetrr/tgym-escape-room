@@ -35,7 +35,7 @@
       padding: 15px;
     }
     
-    @media (screen and max-width: 800px) {
+    @media screen and (max-width: 800px) {
       .small-device-text {
         display: block;
       }

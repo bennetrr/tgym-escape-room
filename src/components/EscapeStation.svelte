@@ -47,9 +47,9 @@
 
 <Modal on:close={closeModal} opened={modalOpen} target={'body'} title="{station.name}">
     {#if $currentUser.username === station.name}
-        <label>
+        <span>
             This station is yours!
-        </label>
+        </span>
         <Group override={{marginTop: 15}} position="center">
             <Button color="teal" on:click={submitModal} override={{width: "7em"}}>
                 Claim it
