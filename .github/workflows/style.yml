@@ -23,4 +23,4 @@ jobs:
       - uses: prgm-dev/svelte-check-pr-annotator@main
 
       - name: Run svelte-check
-        run: yarn check --output machine --use-new-transformation true
+        run: yarn run check --output machine --use-new-transformation true
