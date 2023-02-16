@@ -42,4 +42,4 @@ jobs:
           push: true
 
       - name: Notify Server about Updates
-        run: wget -O- ${{ secrets.UPDATE_WEBHOOK }}
+        run: wget -O- https://containerupdate.bennetr.me/tgym-escape-room
