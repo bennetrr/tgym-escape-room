@@ -40,9 +40,7 @@
 </script>
 
 <div class="station-container" class:station-container-complete={station.completed} on:click={openModal}>
-    {#if !station.completed}
-        <span>{station.name}</span>
-    {/if}
+    <span>{station.name}</span>
 </div>
 
 <Modal on:close={closeModal} opened={modalOpen} target={'body'} title="{station.name}">
