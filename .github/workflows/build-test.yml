@@ -7,7 +7,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  docker-build-test:
+    name: Docker Image Build Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
