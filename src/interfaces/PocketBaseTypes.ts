@@ -3,8 +3,7 @@
  */
 
 export enum Collections {
-    EscapeStations = "escape_stations",
-    Users = "users",
+    EscapeStations = "escape_stations", Users = "users",
 }
 
 // Alias types for improved usability

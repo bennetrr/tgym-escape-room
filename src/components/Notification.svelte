@@ -1,10 +1,10 @@
 <script lang="ts">
     import type NotificationProps from "../interfaces/NotificationProps";
 
-    import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import {Notification} from "@svelteuidev/core";
     import {Check, Cross2} from "radix-icons-svelte";
-    import Warning from "./icons/Warning.svelte";
+    import Exclamation from "./icons/Exclamation.svelte";
 
     export let notification: NotificationProps;
 
@@ -16,14 +16,17 @@
         });
     }
 
-    if (notification?.duration > 0) {
-        setTimeout(remove, notification?.duration * 1000);
-    }
-
     const overrideStyles = {
         minWidth: 300,
-        marginBottom: 15
-    }
+        marginBottom: 15,
+        padding: 20
+    };
+
+    onMount(() => {
+        if (notification?.duration > 0) {
+            setTimeout(remove, notification?.duration * 1000);
+        }
+    });
 </script>
 
 {#if notification.type === "error"}
@@ -31,7 +34,8 @@
         {notification.text}
     </Notification>
 {:else if notification.type === "warning"}
-    <Notification title={notification.title} override={overrideStyles} icon={Warning} color="yellow" on:close={remove}>
+    <Notification title={notification.title} override={overrideStyles} icon={Exclamation} color="yellow"
+                  on:close={remove}>
         {notification.text}
     </Notification>
 {:else if notification.type === "info"}
