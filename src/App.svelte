@@ -24,24 +24,24 @@
 </div>
 
 <style lang="scss">
-    .small-device-text,
-    .main-content {
-      height: 100vh;
-      width: 100vw;
-    }
+  .small-device-text,
+  .main-content {
+    height: 100vh;
+    width: 100vw;
+  }
 
+  .small-device-text {
+    display: none;
+    padding: 15px;
+  }
+
+  @media screen and (max-width: 800px) {
     .small-device-text {
-      display: none;
-      padding: 15px;
+      display: block;
     }
-    
-    @media screen and (max-width: 800px) {
-      .small-device-text {
-        display: block;
-      }
 
-      .main-content {
-        display: none;
-      }
+    .main-content {
+      display: none;
     }
+  }
 </style>

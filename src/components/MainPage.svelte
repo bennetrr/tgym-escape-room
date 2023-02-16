@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {pb, currentUser} from "../connectors/PocketBase";
+    import {currentUser, pb} from "../connectors/PocketBase";
     import type {EscapeStationsResponse, UsersResponse} from "../interfaces/PocketBaseTypes";
     import type {EscapeStation} from "../interfaces/IEscapeStation";
 

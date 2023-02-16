@@ -9,6 +9,7 @@
     export let notification: NotificationProps;
 
     const dispatch = createEventDispatcher();
+
     function remove() {
         dispatch("remove", {
             id: notification.id
@@ -19,7 +20,7 @@
         minWidth: 300,
         marginBottom: 15,
         padding: 20
-    }
+    };
 
     onMount(() => {
         if (notification?.duration > 0) {
@@ -33,7 +34,8 @@
         {notification.text}
     </Notification>
 {:else if notification.type === "warning"}
-    <Notification title={notification.title} override={overrideStyles} icon={Exclamation} color="yellow" on:close={remove}>
+    <Notification title={notification.title} override={overrideStyles} icon={Exclamation} color="yellow"
+                  on:close={remove}>
         {notification.text}
     </Notification>
 {:else if notification.type === "info"}
