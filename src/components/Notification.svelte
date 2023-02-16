@@ -1,7 +1,7 @@
 <script lang="ts">
     import type NotificationProps from "../interfaces/NotificationProps";
 
-    import {createEventDispatcher} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
     import {Notification} from "@svelteuidev/core";
     import {Check, Cross2} from "radix-icons-svelte";
     import Exclamation from "./icons/Exclamation.svelte";
@@ -9,15 +9,10 @@
     export let notification: NotificationProps;
 
     const dispatch = createEventDispatcher();
-
     function remove() {
         dispatch("remove", {
             id: notification.id
         });
-    }
-
-    if (notification?.duration > 0) {
-        setTimeout(remove, notification?.duration * 1000);
     }
 
     const overrideStyles = {
@@ -25,6 +20,12 @@
         marginBottom: 15,
         padding: 20
     }
+
+    onMount(() => {
+        if (notification?.duration > 0) {
+            setTimeout(remove, notification?.duration * 1000);
+        }
+    });
 </script>
 
 {#if notification.type === "error"}
