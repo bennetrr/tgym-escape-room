@@ -22,7 +22,8 @@
 
     const overrideStyles = {
         minWidth: 300,
-        marginBottom: 15
+        marginBottom: 15,
+        padding: 20
     }
 </script>
 
