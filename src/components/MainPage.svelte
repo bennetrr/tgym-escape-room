@@ -28,8 +28,10 @@
         }
 
         // Subscribe to realtime changes
-        await pb.collection("users").subscribe<UsersResponse>($currentUser.id, async ({action, record}) => {
+        await pb.collection("users").subscribe<UsersResponse>("*", async ({action, record}) => {
             if (action !== "update") return;
+            if (record.id !== $currentUser.id) return;
+
             $stations = $stations.map(x => {
                 x.completed = record.completed_stations.some(y => y === x.id);
                 return x;
