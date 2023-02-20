@@ -12,14 +12,14 @@
                 .filter(x => x.duration >= 0)
                 .forEach(x => {
                     x.time_shown++;
-                    if (x.time_shown >= x.duration*10) removeNotification(x.id);
+                    if (x.time_shown >= x.duration * 10) removeNotification(x.id);
                 });
         }, 100);
     });
 
     onDestroy(() => {
         clearInterval(intervallId);
-    })
+    });
 </script>
 
 <div class="notification-container">

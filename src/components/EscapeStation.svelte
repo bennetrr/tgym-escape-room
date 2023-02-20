@@ -82,7 +82,7 @@
   }
 
   .station-name {
-      font-size: 24px;
+    font-size: 24px;
   }
 
   .station-container-complete {
