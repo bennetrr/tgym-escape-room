@@ -5,4 +5,5 @@ export default interface NotificationProps {
     text: string;
     // When the notification should disappear; in seconds; 0 for a permanent notification
     duration: number;
+    time_shown?: number;
 }

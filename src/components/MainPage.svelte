@@ -1,15 +1,16 @@
 <script lang="ts">
+    import {onDestroy, onMount} from "svelte";
+    import {writable} from "svelte/store";
+
+    import {ActionIcon, Loader, Stack} from "@svelteuidev/core";
+    import {Icon} from "svelte-fontawesome/main";
+    import {faLock} from "@fortawesome/free-solid-svg-icons";
+
     import {currentUser, pb} from "../connectors/PocketBase";
     import type {EscapeStationsResponse, UsersResponse} from "../interfaces/PocketBaseTypes";
     import type {EscapeStation} from "../interfaces/IEscapeStation";
 
-    import {onDestroy, onMount} from "svelte";
-    import {ActionIcon, SimpleGrid} from "@svelteuidev/core";
-    import {Icon} from "svelte-fontawesome/main";
-
-    import {faLock} from "@fortawesome/free-solid-svg-icons";
     import EscapeStationView from "./EscapeStation.svelte";
-    import {writable} from "svelte/store";
 
     const stations = writable<EscapeStation[]>([]);
 
@@ -28,8 +29,10 @@
         }
 
         // Subscribe to realtime changes
-        await pb.collection("users").subscribe<UsersResponse>($currentUser.id, async ({action, record}) => {
+        await pb.collection("users").subscribe<UsersResponse>("*", async ({action, record}) => {
             if (action !== "update") return;
+            if (record.id !== $currentUser.id) return;
+
             $stations = $stations.map(x => {
                 x.completed = record.completed_stations.some(y => y === x.id);
                 return x;
@@ -38,7 +41,7 @@
     });
 
     onDestroy(() => {
-        pb.collection("users").unsubscribe("*");
+        pb.collection("users").unsubscribe();
     });
 
     function logout() {
@@ -48,13 +51,15 @@
 
 <main class:main-background-image={$stations.length > 0}>
     {#if $stations.length > 0}
-        <SimpleGrid cols={3} spacing={0}>
+        <div class="stations-grid">
             {#each $stations as station}
                 <EscapeStationView station={station}/>
             {/each}
-        </SimpleGrid>
+        </div>
     {:else}
-        <span>No stations available!</span>
+        <Stack align="center" override={{ height: "100%", width: "100%"}} spacing="xl">
+            <Loader variant="bars" color="teal" size="xl"/>
+        </Stack>
     {/if}
 </main>
 
@@ -68,17 +73,39 @@
   @import "../vars";
 
   main {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
   }
 
   .main-background-image {
     // noinspection CssUnknownTarget
-    background-image: url("background.png");
+    background: url("/background.png") no-repeat center fixed;
+    background-size: contain;
+  }
+
+  .stations-grid {
+    height: 100%;
+    width: 100%;
+    display: grid;
+
+    @media screen and (orientation: portrait) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    @media screen and (orientation: landscape) {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 600px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(6, 1fr);
+    }
   }
 
   .logout-button {
-    position: absolute;
+    position: fixed;
     bottom: $base-spacing;
     left: $base-spacing;
   }

@@ -7,6 +7,7 @@ export const notifications = writable<NotificationProps[]>([]);
 
 export function addNotification(data: NotificationProps): string {
     data.id = uuid4();
+    data.time_shown = 0;
     notifications.update(oldData => [...oldData, data]);
     return data.id;
 }
