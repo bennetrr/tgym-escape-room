@@ -76,7 +76,7 @@
 
   .main-background-image {
     // noinspection CssUnknownTarget
-    background-image: url("background.png");
+    background-image: url("/background.png");
   }
 
   .logout-button {
