@@ -1,7 +1,7 @@
 <script lang="ts">
     import type NotificationProps from "../interfaces/NotificationProps";
 
-    import {createEventDispatcher, onMount} from "svelte";
+    import {createEventDispatcher} from "svelte";
     import {Notification} from "@svelteuidev/core";
     import {Check, Cross2} from "radix-icons-svelte";
     import Exclamation from "./icons/Exclamation.svelte";
@@ -21,12 +21,6 @@
         marginBottom: 15,
         padding: 20
     };
-
-    onMount(() => {
-        if (notification?.duration > 0) {
-            setTimeout(remove, notification?.duration * 1000);
-        }
-    });
 </script>
 
 {#if notification.type === "error"}

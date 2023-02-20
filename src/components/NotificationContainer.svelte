@@ -2,6 +2,24 @@
     import {notifications, removeNotification} from "../stores/NotificationStore";
 
     import Notification from "./Notification.svelte";
+    import {onDestroy, onMount} from "svelte";
+
+    let intervallId;
+
+    onMount(() => {
+        intervallId = setInterval(() => {
+            $notifications
+                .filter(x => x.duration >= 0)
+                .forEach(x => {
+                    x.time_shown++;
+                    if (x.time_shown >= x.duration*10) removeNotification(x.id);
+                });
+        }, 100);
+    });
+
+    onDestroy(() => {
+        clearInterval(intervallId);
+    })
 </script>
 
 <div class="notification-container">
