@@ -8,6 +8,10 @@
 
     let username: string;
 
+    function handleEnterPress(e: KeyboardEvent) {
+        if (e.key === "Enter") login();
+    }
+
     async function login() {
         try {
             await pb.collection("users").authWithPassword(username, username);
@@ -18,7 +22,7 @@
 </script>
 
 <Stack align="center" override={{ height: "100%", width: "100%"}} spacing="xl">
-    <TextInput bind:value={username} label="Group Name">
+    <TextInput bind:value={username} label="Group Name" on:keypress={handleEnterPress}>
         <svelte:fragment slot="rightSection">
             <Icon icon={faUserGroup}/>
         </svelte:fragment>

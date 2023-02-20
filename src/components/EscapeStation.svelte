@@ -38,6 +38,17 @@
 
         closeModal();
     }
+
+    function handleKeyPress(e: KeyboardEvent) {
+        switch (e.key) {
+            case "Enter":
+                submitModal();
+                break;
+            case "Escape":
+                closeModal();
+                break;
+        }
+    }
 </script>
 
 <div class="station-container" class:station-container-complete={station.completed} on:click={openModal}>
@@ -51,7 +62,8 @@
             You can claim it without entering the secret.
         </span>
     {:else}
-        <TextInput bind:value={secret} label="Enter the secret for {station.name}" type="password">
+        <TextInput bind:value={secret} label="Enter the secret for {station.name}" type="password"
+                   on:keypress={handleKeyPress}>
             <svelte:fragment slot="rightSection">
                 <Icon icon={faKey}/>
             </svelte:fragment>
