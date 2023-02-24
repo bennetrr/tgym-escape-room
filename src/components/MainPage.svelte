@@ -8,6 +8,7 @@
 
     import {currentUser, pb} from "../connectors/PocketBase";
     import type {EscapeStationsResponse, UsersResponse} from "../interfaces/PocketBaseTypes";
+    import {Collections} from "../interfaces/PocketBaseTypes";
     import type {EscapeStation} from "../interfaces/IEscapeStation";
 
     import EscapeStationView from "./EscapeStation.svelte";
@@ -16,8 +17,8 @@
 
     onMount(async () => {
         // Get initial stations
-        const stationResultList = await pb.collection("escape_stations").getFullList<EscapeStationsResponse>();
-        const userResult = await pb.collection("users").getOne<UsersResponse>($currentUser.id);
+        const stationResultList = await pb.collection(Collections.EscapeStations).getFullList<EscapeStationsResponse>();
+        const userResult = await pb.collection(Collections.Users).getOne<UsersResponse>($currentUser.id);
 
         for (const stationResult of stationResultList) {
             $stations = [...$stations, {
@@ -29,7 +30,7 @@
         }
 
         // Subscribe to realtime changes
-        await pb.collection("users").subscribe<UsersResponse>("*", async ({action, record}) => {
+        await pb.collection(Collections.Users).subscribe<UsersResponse>("*", async ({action, record}) => {
             if (action !== "update") return;
             if (record.id !== $currentUser.id) return;
 
@@ -41,7 +42,7 @@
     });
 
     onDestroy(() => {
-        pb.collection("users").unsubscribe();
+        pb.collection(Collections.Users).unsubscribe();
     });
 
     function logout() {

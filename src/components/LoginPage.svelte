@@ -1,5 +1,6 @@
 <script lang="ts">
     import {pb} from "../connectors/PocketBase";
+    import {Collections} from "../interfaces/PocketBaseTypes";
     import {addNotification} from "../stores/NotificationStore";
 
     import {Button, Stack, TextInput} from "@svelteuidev/core";
@@ -14,7 +15,7 @@
 
     async function login() {
         try {
-            await pb.collection("users").authWithPassword(username, username);
+            await pb.collection(Collections.Users).authWithPassword(username, username);
         } catch (e) {
             addNotification({type: "error", title: "Login failed!", text: "Wrong group name", duration: 10});
         }

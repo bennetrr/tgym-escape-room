@@ -1,6 +1,7 @@
 <script lang="ts">
     import {currentUser, pb} from "../connectors/PocketBase";
     import type {EscapeStationsRecord, UsersResponse} from "../interfaces/PocketBaseTypes";
+    import {Collections} from "../interfaces/PocketBaseTypes";
     import type {EscapeStation} from "../interfaces/IEscapeStation";
     import {addNotification} from "../stores/NotificationStore";
 
@@ -31,9 +32,9 @@
             }
         }
 
-        const userResult = await pb.collection("users").getOne<UsersResponse>($currentUser.id);
+        const userResult = await pb.collection(Collections.Users).getOne<UsersResponse>($currentUser.id);
         const completedStations = [...userResult.completed_stations, station.id];
-        await pb.collection("users")
+        await pb.collection(Collections.Users)
             .update<EscapeStationsRecord>($currentUser.id, {...userResult, completed_stations: completedStations});
 
         closeModal();
