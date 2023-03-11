@@ -23,7 +23,7 @@
     "listRule": "id = @request.auth.id",
     "viewRule": "id = @request.auth.id",
     "createRule": null,
-    "updateRule": null,
+    "updateRule": "id = @request.auth.id",
     "deleteRule": null,
     "options": {
       "allowEmailAuth": false,
@@ -56,23 +56,19 @@
         }
       },
       {
-        "id": "gwhiphva",
-        "name": "code",
-        "type": "text",
+        "id": "dewr6s0d",
+        "name": "codes",
+        "type": "json",
         "system": false,
         "required": true,
         "unique": false,
-        "options": {
-          "min": null,
-          "max": null,
-          "pattern": ""
-        }
+        "options": {}
       }
     ],
     "listRule": "@request.auth.id != \"\"",
     "viewRule": "@request.auth.id != \"\"",
     "createRule": null,
-    "updateRule": null,
+    "updateRule": "@request.auth.id != \"\"",
     "deleteRule": null,
     "options": {}
   }

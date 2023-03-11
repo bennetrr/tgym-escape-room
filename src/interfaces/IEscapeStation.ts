@@ -1,6 +1,6 @@
 export interface EscapeStation {
     id: string;
     name: string;
-    code: string;
+    codes: string[];
     completed: boolean;
 }
