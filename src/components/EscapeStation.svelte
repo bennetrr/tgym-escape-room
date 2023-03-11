@@ -26,7 +26,7 @@
 
     async function submitModal() {
         if ($currentUser.username !== station.name) {
-            if (secret !== station.code) {
+            if (!station.codes.includes(secret)) {
                 addNotification({type: "warning", text: "You've entered the wrong secret!", duration: 5});
                 return;
             }

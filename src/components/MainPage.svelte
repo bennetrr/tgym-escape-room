@@ -17,14 +17,14 @@
 
     onMount(async () => {
         // Get initial stations
-        const stationResultList = await pb.collection(Collections.EscapeStations).getFullList<EscapeStationsResponse>();
+        const stationResultList = await pb.collection(Collections.EscapeStations).getFullList<EscapeStationsResponse<{codes: string[]}>>();
         const userResult = await pb.collection(Collections.Users).getOne<UsersResponse>($currentUser.id);
 
         for (const stationResult of stationResultList) {
             $stations = [...$stations, {
                 id: stationResult.id,
                 name: stationResult.name,
-                code: stationResult.code,
+                codes: stationResult.codes,
                 completed: userResult.completed_stations.some(x => x === stationResult.id)
             }];
         }
