@@ -25,6 +25,7 @@
                 id: stationResult.id,
                 name: stationResult.name,
                 codes: stationResult.codes,
+                color: stationResult.color,
                 completed: userResult.completed_stations.some(x => x === stationResult.id)
             }];
         }
