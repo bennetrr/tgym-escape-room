@@ -63,6 +63,19 @@
         "required": true,
         "unique": false,
         "options": {}
+      },
+      {
+        "id": "srnzrfpf",
+        "name": "color",
+        "type": "text",
+        "system": false,
+        "required": true,
+        "unique": false,
+        "options": {
+          "min": null,
+          "max": null,
+          "pattern": "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+        }
       }
     ],
     "listRule": "@request.auth.id != \"\"",

@@ -34,6 +34,7 @@ export type AuthSystemFields<T = never> = {
 export type EscapeStationsRecord<Tcodes = unknown> = {
 	name: string
 	codes: null | Tcodes
+	color: string
 }
 
 export type UsersRecord = {

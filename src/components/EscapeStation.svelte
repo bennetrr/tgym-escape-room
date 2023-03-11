@@ -52,7 +52,7 @@
     }
 </script>
 
-<div class="station-container" class:station-container-complete={station.completed} on:click={openModal}>
+<div class="station-container" class:station-container-complete={station.completed} on:click={openModal} style:background-color={station.color}>
     <span class="station-name">{station.name}</span>
 </div>
 
@@ -89,9 +89,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background-color: $base-color-alt1;
-    border: $base-border;
   }
 
   .station-name {
