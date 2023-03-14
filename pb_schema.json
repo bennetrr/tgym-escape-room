@@ -18,6 +18,20 @@
           "maxSelect": null,
           "displayFields": []
         }
+      },
+      {
+        "id": "i2m62fy1",
+        "name": "my_station",
+        "type": "relation",
+        "system": false,
+        "required": true,
+        "unique": false,
+        "options": {
+          "collectionId": "gh3k8h1bmsmrabn",
+          "cascadeDelete": false,
+          "maxSelect": 1,
+          "displayFields": []
+        }
       }
     ],
     "listRule": "id = @request.auth.id",

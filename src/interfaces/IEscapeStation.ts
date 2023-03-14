@@ -4,4 +4,5 @@ export interface EscapeStation {
     codes: string[];
     color: string;
     completed: boolean;
+    ownStation: boolean;
 }

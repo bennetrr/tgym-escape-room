@@ -25,7 +25,7 @@
     }
 
     async function submitModal() {
-        if ($currentUser.username !== station.name) {
+        if (!station.ownStation) {
             if (!station.codes.includes(secret)) {
                 addNotification({type: "warning", text: "You've entered the wrong secret!", duration: 5});
                 return;
@@ -57,7 +57,7 @@
 </div>
 
 <Modal on:close={closeModal} opened={modalOpen} target={'body'} title="{station.name}">
-    {#if $currentUser.username === station.name}
+    {#if station.ownStation}
         <span>
             This station is yours!<br/>
             You can claim it without entering the secret.

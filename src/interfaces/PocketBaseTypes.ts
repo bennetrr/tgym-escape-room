@@ -39,6 +39,7 @@ export type EscapeStationsRecord<Tcodes = unknown> = {
 
 export type UsersRecord = {
 	completed_stations?: RecordIdString[]
+	my_station: RecordIdString
 }
 
 // Response types include system fields and match responses from the PocketBase API
