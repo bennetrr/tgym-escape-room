@@ -14,6 +14,8 @@ docker compose up -d
 You can access the app on `http://localhost:3457` and the PocketBase dashboard on `http://localhost:3456`.
 The PocketBase URL is hardcoded in the app, so the app only works on localhost unless you change the code.
 
+You also need to create a account in PocketBase and import the schema definition (found in `pb_schema.json`).
+
 Stop the server: 
 
 ```bash
