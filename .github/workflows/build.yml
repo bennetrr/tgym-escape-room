@@ -40,6 +40,3 @@ jobs:
           context: .
           tags: ghcr.io/bennetrr/tgym-escape-room-app:${{ github.event.release.tag_name }}
           push: true
-
-#      - name: Notify Server about Updates
-#        run: wget -O- https://containerupdate.bennetr.me/tgym-escape-room
