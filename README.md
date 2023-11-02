@@ -3,11 +3,19 @@
 A small app that collects the result of multiple escape room quizzes and reveals a big image (kind of like a puzzle).
 This app is built for a school project.
 
-## Run the app
+## Preview Server
 
-You can use docker compose to deploy this app. The `docker-compose.yml` is found in the repository root.
+Start the server:
 
-The file exposes the API and its dashboard (PocketBase) on port `8300` and the web app itself on port `8301`.
+```bash
+docker compose up -d
+```
 
-To update the app to a newer version, you have to update the docker images in the compose file
-(or download the new compose file from the GitHub repository).
+You can access the app on `http://localhost:3457` and the PocketBase dashboard on `http://localhost:3456`.
+The PocketBase URL is hardcoded in the app, so the app only works on localhost unless you change the code.
+
+Stop the server: 
+
+```bash
+docker compose down
+```
