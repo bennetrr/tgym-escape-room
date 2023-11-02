@@ -2,7 +2,7 @@ import PocketBase from "pocketbase";
 import {writable} from "svelte/store";
 import type {UsersResponse} from "../interfaces/PocketBaseTypes";
 
-export const pb = new PocketBase("https://api.tgym-escape-room.bennetr.me");
+export const pb = new PocketBase("https://api.tgym-escape-room.local");
 // @ts-ignore
 export const currentUser = writable<UsersResponse>(pb.authStore.model);
 
