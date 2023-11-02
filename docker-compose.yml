@@ -5,19 +5,19 @@ volumes:
 
 services:
   pocketbase:
-    image: ghcr.io/bennetrr/tgym-escape-room-pocketbase:v1.2.0
+    image: ghcr.io/bennetrr/tgym-escape-room-pocketbase:v1.2.2
     container_name: tgym-escape-room-pocketBase
     restart: always
     ports:
-      - "8300:8080"
+      - "3456:8080"
     volumes:
       - type: volume
         source: pocketbase_data
         target: /pb/
 
   app:
-    image: ghcr.io/bennetrr/tgym-escape-room-app:v1.2.0
+    image: ghcr.io/bennetrr/tgym-escape-room-app:v1.2.2
     container_name: tgym-escape-room-app
     restart: always
     ports:
-      - "8301:80"
+      - "3457:80"
