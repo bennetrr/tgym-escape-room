@@ -1,3 +1,6 @@
+> [!WARNING]
+> Dieses Projekt ist archiviert und wird nicht mehr weiterentwickelt.
+
 # TGYM01 English Escape Room
 
 A small app that collects the result of multiple escape room quizzes and reveals a big image (kind of like a puzzle).
